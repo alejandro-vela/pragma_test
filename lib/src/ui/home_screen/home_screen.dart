@@ -19,32 +19,66 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isGrid = true;
+  FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            isGrid = !isGrid;
-          });
-        },
-        backgroundColor: AppColors.primaryColor,
-        child: isGrid ? Icon(Icons.app_registration_sharp) : Icon(Icons.list),
-      ),
       body: SafeArea(
         child: Column(
           children: [
-            InkWell(
-              child: Text('EL BUSCAR'),
-              onTap: () {
-                showSearch(
-                  context: context,
-                  delegate: CustomSearchDelegate(
-                    dataList: widget.catBloc.catNames,
-                  ),
-                );
-              },
+            ListTile(
+              title: Text(
+                'Cats',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              trailing: IconButton(
+                onPressed: () {
+                  setState(() {
+                    isGrid = !isGrid;
+                  });
+                },
+                icon: isGrid
+                    ? Icon(Icons.app_registration_sharp,
+                        color: AppColors.primaryColor)
+                    : Icon(Icons.list, color: AppColors.primaryColor),
+              ),
             ),
+            InkWell(
+                onTap: () {
+                  focusNode.unfocus();
+                  showSearch(
+                    context: context,
+                    delegate: CustomSearchDelegate(
+                      dataList: widget.catBloc.catNames,
+                    ),
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey.shade200,
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(width: 10),
+                      Icon(Icons.search),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          'Search',
+                          style: TextStyle(
+                            color: AppColors.grey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
             isGrid
                 ? Expanded(
                     child: GridView.count(

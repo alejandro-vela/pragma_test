@@ -91,16 +91,19 @@ class _ImageNetwork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: image,
-      placeholder: (context, url) => CustomImage(
-        image: 'assets/static/jar-loading.gif',
-      ),
-      errorWidget: (context, url, error) => CustomImage(
-        image: 'assets/static/no-image.png',
+    return Hero(
+      tag: image,
+      child: CachedNetworkImage(
+        imageUrl: image,
+        placeholder: (context, url) => CustomImage(
+          image: 'assets/static/jar-loading.gif',
+        ),
+        errorWidget: (context, url, error) => CustomImage(
+          image: 'assets/static/no-image.png',
+          fit: fit ?? BoxFit.cover,
+        ),
         fit: fit ?? BoxFit.cover,
       ),
-      fit: fit ?? BoxFit.cover,
     );
   }
 }
