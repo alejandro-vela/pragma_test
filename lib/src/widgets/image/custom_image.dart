@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 enum ImageType { file, network }
 
@@ -90,19 +91,15 @@ class _ImageNetwork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FadeInImage(
-      placeholder: AssetImage(
-        'assets/static/jar-loading.gif',
+    return CachedNetworkImage(
+      imageUrl: image,
+      placeholder: (context, url) => CustomImage(
+        image: 'assets/static/jar-loading.gif',
       ),
-      image: NetworkImage(image),
-      imageErrorBuilder:
-          (BuildContext context, Object exception, StackTrace? stackTrace) {
-        return Image.asset(
-          'assets/static/no-image.png',
-          fit: fit ?? BoxFit.cover,
-          filterQuality: FilterQuality.medium,
-        );
-      },
+      errorWidget: (context, url, error) => CustomImage(
+        image: 'assets/static/no-image.png',
+        fit: fit ?? BoxFit.cover,
+      ),
       fit: fit ?? BoxFit.cover,
     );
   }
