@@ -273,3 +273,4 @@ build/
 .dart_tool/
 .flutter-plugins-dependencies
 .env.production
+api-key.json
