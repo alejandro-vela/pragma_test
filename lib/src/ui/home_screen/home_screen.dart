@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isGrid = true;
+  bool isGrid = false;
   FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {

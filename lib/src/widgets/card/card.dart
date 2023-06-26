@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pragma_test/src/ui/detail_screen/detail_screen.dart';
 import 'package:pragma_test/src/utils/navigation_service.dart';
+import 'package:pragma_test/src/utils/url/launch_url.dart';
 
 import '../../bloc/cat/cat_bloc.dart';
 import '../image/custom_image.dart';
@@ -58,7 +59,12 @@ class CatCards extends StatelessWidget {
                       isGrid
                           ? Container()
                           : IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                catBloc.cats[index].wikipediaUrl == null
+                                    ? throw 'Could not launch ${catBloc.cats[index].wikipediaUrl}'
+                                    : launchUrls(
+                                        catBloc.cats[index].wikipediaUrl!);
+                              },
                               icon: Icon(Icons.link_rounded),
                             ),
                     ],

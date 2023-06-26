@@ -88,7 +88,7 @@ class DefaultAPIRepository implements APIRepository {
         return map;
       }
     }
-    _logger.d('Response error ${response.body}');
+    _logger.d('Response  ${response.body}');
     var map = cast<Map<String, dynamic>>(decodedBody);
     if (map != null) {
       map.addAll({'statusCode': response.statusCode});

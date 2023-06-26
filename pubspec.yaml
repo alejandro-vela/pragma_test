@@ -13,6 +13,10 @@ dependencies:
   #Console
   logger: ^1.1.0
 
+  # UI
+  flutter_rating_bar: ^4.0.1
+  url_launcher: ^6.1.11
+
   # Logic
   equatable: ^2.0.5
   bloc: ^8.1.0
