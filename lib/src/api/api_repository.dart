@@ -24,22 +24,19 @@ class DefaultAPIRepository implements APIRepository {
     _logger.d('Request endpoint: ${endpoint.body}');
     Uri url;
     try {
-      url = Uri.https(
-        //String.fromEnvironment('apiUrl'),
-        'api.thecatapi.com',
-        endpoint.path,
-        endpoint.queryParameters,
-      );
-      // if (String.fromEnvironment('protocol') == Protocol.https.name) {
-
-      // } else {
-      //   url = Uri.http(
-      //     //String.fromEnvironment('apiUrl'),
-      //     'api.thecatapi.com',
-      //     endpoint.path,
-      //     endpoint.queryParameters,
-      //   );
-      // }
+      if (const String.fromEnvironment('protocol') == Protocol.https.name) {
+        url = Uri.https(
+          const String.fromEnvironment('apiUrl'),
+          endpoint.path,
+          endpoint.queryParameters,
+        );
+      } else {
+        url = Uri.http(
+          const String.fromEnvironment('apiUrl'),
+          endpoint.path,
+          endpoint.queryParameters,
+        );
+      }
     } catch (e) {
       _logger.e('APIRepository - Error parse uri$e ');
       Exception('Error parse uri $e');
@@ -49,7 +46,7 @@ class DefaultAPIRepository implements APIRepository {
     var headers = {
       HttpHeaders.acceptHeader: '*/*',
       HttpHeaders.contentTypeHeader: 'application/json',
-      'x-api-key': 'bda53789-d59e-46cd-9bc4-2936630fde39'
+      'x-api-key': const String.fromEnvironment('apiKey'),
     };
     headers.addAll(endpoint.headers);
     try {
